@@ -9,7 +9,7 @@ let files: File[] = [];
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="container">
     <header>
-      <h1>PDF Merger</h1>
+      <h1>Libris</h1>
       <p class="subtitle">Combine multiple PDFs with auto-generated title pages</p>
     </header>
 
