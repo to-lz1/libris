@@ -1,13 +1,28 @@
-import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import fontkit from '@pdf-lib/fontkit';
+import { PDFDocument, rgb } from 'pdf-lib';
+
+// Cache font bytes for the session (fetch only once)
+let fontBytesCache: ArrayBuffer | null = null;
+
+async function loadJapaneseFont(): Promise<ArrayBuffer> {
+  if (!fontBytesCache) {
+    const res = await fetch('/fonts/BIZUDGothic-Regular.ttf');
+    if (!res.ok) throw new Error(`Failed to load font: ${res.statusText}`);
+    fontBytesCache = await res.arrayBuffer();
+  }
+  return fontBytesCache;
+}
 
 export async function createTitlePage(title: string): Promise<PDFDocument> {
   const doc = await PDFDocument.create();
-  const page = doc.addPage([595.28, 841.89]); // A4
-  const font = await doc.embedFont(StandardFonts.Helvetica);
+  doc.registerFontkit(fontkit);
 
-  const pageWidth = page.getWidth();
-  const pageHeight = page.getHeight();
-  const maxWidth = pageWidth - 80;
+  const fontBytes = await loadJapaneseFont();
+  const font = await doc.embedFont(fontBytes, { subset: true });
+
+  const page = doc.addPage([595.28, 841.89]); // A4
+  const { width, height } = page.getSize();
+  const maxWidth = width - 80;
 
   let fontSize = 36;
   while (fontSize > 14) {
@@ -19,8 +34,8 @@ export async function createTitlePage(title: string): Promise<PDFDocument> {
   const textHeight = font.heightAtSize(fontSize);
 
   page.drawText(title, {
-    x: (pageWidth - textWidth) / 2,
-    y: (pageHeight - textHeight) / 2,
+    x: (width - textWidth) / 2,
+    y: (height - textHeight) / 2,
     size: fontSize,
     font,
     color: rgb(0, 0, 0),
