@@ -18,7 +18,7 @@ export async function createTitlePage(title: string): Promise<PDFDocument> {
   doc.registerFontkit(fontkit);
 
   const fontBytes = await loadJapaneseFont();
-  const font = await doc.embedFont(fontBytes, { subset: true });
+  const font = await doc.embedFont(fontBytes);
 
   const page = doc.addPage([595.28, 841.89]); // A4
   const { width, height } = page.getSize();
