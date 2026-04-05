@@ -1,6 +1,6 @@
 export function deriveTitle(filename: string): string {
   const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
-  const withSpaces = nameWithoutExt.replace(/[_\-.]+/g, ' ').trim();
+  const withSpaces = nameWithoutExt.replace(/[_.]+/g, ' ').trim();
   if (!withSpaces) return 'Untitled';
   return withSpaces
     .split(' ')

@@ -22,7 +22,7 @@ export async function createTitlePage(title: string): Promise<PDFDocument> {
 
   const page = doc.addPage([595.28, 841.89]); // A4
   const { width, height } = page.getSize();
-  const maxWidth = width - 80;
+  const maxWidth = width - 160;
 
   let fontSize = 36;
   while (fontSize > 14) {
