@@ -3,7 +3,22 @@ Libris - Online Score Arrangement Tool
 
 Librisはブラウザ完結型のPDF結合ツールです。
 
+https://to-lz1.github.io/libris/
+
 - 表紙の付与
 - 表紙が奇数ページに来るような空白ページの挿入
 
 を機能として持っており、オーケストラの楽譜の製本・印刷にまつわる手間を最小化することを目的をしています。
+
+## setup
+
+```
+mise install
+```
+
+## development
+
+```
+pnpm install
+pnpm dev
+```
