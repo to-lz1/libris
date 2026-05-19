@@ -6,8 +6,8 @@ let fontBytesCache: ArrayBuffer | null = null;
 
 async function loadJapaneseFont(): Promise<ArrayBuffer> {
   if (!fontBytesCache) {
-    const res = await fetch('/fonts/BIZUDGothic-Regular.ttf');
-    if (!res.ok) throw new Error(`Failed to load font: ${res.statusText}`);
+    const res = await fetch('/libris/fonts/BIZUDGothic-Regular.ttf');
+    if (!res.ok) throw new Error(`Failed to load font: ${JSON.stringify(res)}`);
     fontBytesCache = await res.arrayBuffer();
   }
   return fontBytesCache;
